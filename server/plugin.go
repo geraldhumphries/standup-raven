@@ -78,7 +78,7 @@ func (p *Plugin) setUpBot() (string, error) {
 		return "", err
 	}
 
-	profileImage, err := ioutil.ReadFile(filepath.Join(bundlePath, "webapp/static/logo.png"))
+	profileImage, err := ioutil.ReadFile(filepath.Join(bundlePath, "assets/logo.png"))
 	if err != nil {
 		return "", err
 	}

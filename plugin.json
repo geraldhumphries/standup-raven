@@ -5,13 +5,19 @@
   "description": "A Mattermost plugin for communicating daily standups across teams",
   "homepage_url": "https://standupraven.com/",
   "support_url": "https://github.com/standup-raven/standup-raven/issues",
-  "icon_path": "webapp/logo.svg",
+  "icon_path": "assets/logo.svg",
   "min_server_version": "5.25.0",
-  "webapp": {
-    "bundle_path": "webapp/main.js"
-  },
   "server": {
-    "executable": "server/plugin.exe"
+    "executables": {
+      "linux-amd64": "server/dist/plugin-linux-amd64",
+      "linux-arm64": "server/dist/plugin-linux-arm64",
+      "darwin-amd64": "server/dist/plugin-darwin-amd64",
+      "darwin-arm64": "server/dist/plugin-darwin-arm64",
+      "windows-amd64": "server/dist/plugin-windows-amd64.exe"
+    }
+  },
+  "webapp": {
+    "bundle_path": "webapp/dist/main.js"
   },
   "settings_schema": {
     "settings": [

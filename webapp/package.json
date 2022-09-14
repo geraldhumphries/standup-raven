@@ -3,11 +3,16 @@
   "version": "0.0.1",
   "main": "src/index.js",
   "scripts": {
-    "build": "webpack --mode=development",
-    "lintjs": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx . --quiet",
-    "fixjs": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx . --quiet --fix",
-    "lintstyle": "stylelint \"./src/**/*.css\"",
-    "fixstyle": "stylelint \"./src/**/*.css\" --fix"
+    "build": "webpack --mode=production",
+    "build:watch": "webpack --mode=production --watch",
+    "debug": "webpack --mode=none",
+    "debug:watch": "webpack --mode=development --watch",
+    "lint": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx --ext tsx --ext ts . --quiet --cache",
+    "fix": "eslint --ignore-pattern node_modules --ignore-pattern dist --ext .js --ext .jsx --ext tsx --ext ts . --quiet --fix --cache",
+    "test": "jest --forceExit --detectOpenHandles --verbose",
+    "test:watch": "jest --watch",
+    "test-ci": "jest --forceExit --detectOpenHandles --maxWorkers=2",
+    "check-types": "tsc"
   },
   "author": "",
   "license": "",
@@ -53,9 +58,51 @@
     "react-datepicker": "^2.14.1",
     "react-dom": "^16.7.0",
     "react-redux": "5.0.7",
-    "react-rrule-generator": "https://github.com/standup-raven/react-bootstrap-rrule-generator.git#v2.0.0",
+    "react-rrule-generator": "standup-raven/react-bootstrap-rrule-generator#v2.0.0",
     "react-switch": "^5.0.0",
     "redux": "4.0.0",
     "superagent": "^3.8.3"
+  },
+  "jest": {
+    "snapshotSerializers": [
+      "<rootDir>/node_modules/enzyme-to-json/serializer"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "/non_npm_dependencies/"
+    ],
+    "clearMocks": true,
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx}"
+    ],
+    "coverageReporters": [
+      "lcov",
+      "text-summary"
+    ],
+    "moduleNameMapper": {
+      "^.+\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "identity-obj-proxy",
+      "^.+\\.(css|less|scss)$": "identity-obj-proxy",
+      "^.*i18n.*\\.(json)$": "<rootDir>/tests/i18n_mock.json",
+      "^bundle-loader\\?lazy\\!(.*)$": "$1"
+    },
+    "moduleDirectories": [
+      "",
+      "node_modules",
+      "non_npm_dependencies"
+    ],
+    "reporters": [
+      "default",
+      "jest-junit"
+    ],
+    "transformIgnorePatterns": [
+      "node_modules/(?!react-native|react-router|mattermost-webapp)"
+    ],
+    "setupFiles": [
+      "jest-canvas-mock"
+    ],
+    "setupFilesAfterEnv": [
+      "<rootDir>/tests/setup.tsx"
+    ],
+    "testURL": "http://localhost:8065"
   }
 }

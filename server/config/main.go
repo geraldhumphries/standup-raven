@@ -15,7 +15,7 @@ import (
 const (
 	PluginName                   = "standup-raven"
 	CommandPrefix                = "standup"
-	ServerExeToStaticDirRootPath = "/../webapp/static"
+	ServerExeToStaticDirRootPath = "/../assets"
 
 	URLPluginBase = "/plugins/" + PluginName
 	URLStaticBase = URLPluginBase

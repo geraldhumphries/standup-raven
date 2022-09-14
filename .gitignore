@@ -13,3 +13,4 @@ server.sha
 server.old.sha
 **/.DS_Store
 .vscode
+.idea/

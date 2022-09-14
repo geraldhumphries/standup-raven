@@ -1,5 +1,4 @@
 const path = require('path');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const SentryWebpackPlugin = require('@sentry/webpack-plugin');
 const buildProperties = require('../build_properties.json');
 const fs = require('fs');
@@ -46,13 +45,6 @@ module.exports = {
             },
         ],
     },
-    plugins: [
-        new CopyWebpackPlugin({
-            patterns: [
-                {from: 'src/assets/images', to: 'static/'},
-            ],
-        }),
-    ],
     externals: {
         react: 'React',
         redux: 'Redux',
