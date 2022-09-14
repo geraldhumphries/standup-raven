@@ -10,9 +10,9 @@ import (
 	"github.com/teambition/rrule-go"
 
 	"bou.ke/monkey"
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/plugin/plugintest"
-	"github.com/mattermost/mattermost-server/v5/plugin/plugintest/mock"
+	"github.com/mattermost/mattermost-server/v6/model"
+	"github.com/mattermost/mattermost-server/v6/plugin/plugintest"
+	"github.com/mattermost/mattermost-server/v6/plugin/plugintest/mock"
 	"github.com/pkg/errors"
 	"github.com/stretchr/testify/assert"
 

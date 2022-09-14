@@ -2,10 +2,10 @@ package main
 
 import (
 	"fmt"
+	"github.com/getsentry/sentry-go"
 	"io/ioutil"
 	"net/http"
 
-	"github.com/getsentry/sentry-go"
 	"github.com/mattermost/mattermost-plugin-api/cluster"
 
 	"github.com/standup-raven/standup-raven/server/logger"
@@ -15,8 +15,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/mattermost/mattermost-server/v5/model"
-	"github.com/mattermost/mattermost-server/v5/plugin"
+	"github.com/mattermost/mattermost-server/v6/model"
+	"github.com/mattermost/mattermost-server/v6/plugin"
 
 	"github.com/standup-raven/standup-raven/server/command"
 	"github.com/standup-raven/standup-raven/server/config"
@@ -64,7 +64,7 @@ func (p *Plugin) OnActivate() error {
 }
 
 func (p *Plugin) setUpBot() (string, error) {
-	botID, err := p.Helpers.EnsureBot(&model.Bot{
+	botID, err := p.API.EnsureBotUser(&model.Bot{
 		Username:    config.BotUsername,
 		DisplayName: config.BotDisplayName,
 		Description: "Bot for Standup Raven.",
@@ -159,7 +159,7 @@ func (p *Plugin) ExecuteCommand(c *plugin.Context, args *model.CommandArgs) (*mo
 	split, argErr := util.SplitArgs(args.Command)
 	if argErr != nil {
 		return &model.CommandResponse{
-			Type: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
+			Type: model.CommandResponseTypeEphemeral,
 			Text: argErr.Error(),
 		}, nil
 	}

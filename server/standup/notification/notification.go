@@ -7,7 +7,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/mattermost/mattermost-server/v6/model"
 	"github.com/pkg/errors"
 
 	"github.com/standup-raven/standup-raven/server/config"
@@ -283,9 +283,9 @@ func SetNotificationStatus(channelID string, status *ChannelNotificationStatus) 
 }
 
 // filterChannelNotification filters all provided standup channels into three categories -
-// 		1. channels requiring window open notification
-// 		2. channels requiring window close notification
-//		3. channels requiring standup report
+//  1. channels requiring window open notification
+//  2. channels requiring window close notification
+//  3. channels requiring standup report
 func filterChannelNotification(channelIDs map[string]string) ([]string, []string, []string, error) {
 	logger.Debug("Filtering channels for sending notifications", nil)
 	logger.Debug(fmt.Sprintf("Channels to process: %d", len(channelIDs)), nil, nil)
@@ -407,7 +407,7 @@ func sendWindowOpenNotification(channelIDs []string) {
 		post := &model.Post{
 			ChannelId: channelID,
 			UserId:    config.GetConfig().BotUserID,
-			Type:      model.POST_DEFAULT,
+			Type:      model.PostTypeDefault,
 			Message:   "Please start filling your standup!",
 		}
 
@@ -480,7 +480,7 @@ func sendWindowCloseNotification(channelIDs []string) error {
 		post := &model.Post{
 			ChannelId: channelID,
 			UserId:    config.GetConfig().BotUserID,
-			Type:      model.POST_DEFAULT,
+			Type:      model.PostTypeDefault,
 			Message:   message,
 		}
 
@@ -631,7 +631,7 @@ func getUserDisplayName(userID string) (string, error) {
 	if appErr != nil {
 		return "", errors.New(appErr.Error())
 	}
-	return user.GetDisplayName(model.SHOW_FULLNAME), nil
+	return user.GetDisplayName(model.ShowFullName), nil
 }
 
 func addReminderPost(postID string, channelID string) error {

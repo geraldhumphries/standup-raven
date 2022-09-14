@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/mattermost/mattermost-server/v5/plugin"
+	"github.com/mattermost/mattermost-server/v6/plugin"
 	"go.uber.org/atomic"
 
 	"github.com/standup-raven/standup-raven/server/otime"

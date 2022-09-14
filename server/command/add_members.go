@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/mattermost/mattermost-server/v5/model"
+	"github.com/mattermost/mattermost-server/v6/model"
 	"github.com/thoas/go-funk"
 
 	"github.com/standup-raven/standup-raven/server/config"
@@ -18,7 +18,7 @@ func commandAddMembers() *Config {
 	return &Config{
 		AutocompleteData: &model.AutocompleteData{
 			Trigger: "addmembers",
-			RoleID:  model.SYSTEM_USER_ROLE_ID,
+			RoleID:  model.SystemUserRoleId,
 			Hint:    "[username 1] [username 2] [username 3]...",
 			HelpText: "Adds specified members to the the current channel's standup. " +
 				"Members are also automatically added to the current channel if not already part of it.",
@@ -46,7 +46,7 @@ func validateAddMembers(args []string, context Context) (*model.CommandResponse,
 		return nil, appErr
 	}
 
-	if funk.Contains(userRoles, model.SYSTEM_GUEST_ROLE_ID) {
+	if funk.Contains(userRoles, model.SystemGuestRoleId) {
 		return util.SendEphemeralText("Guest users are not allowed to perform this operation.")
 	}
 
@@ -94,7 +94,7 @@ func executeAddMembers(args []string, context Context) (*model.CommandResponse, 
 	}
 
 	return &model.CommandResponse{
-		Type: model.COMMAND_RESPONSE_TYPE_EPHEMERAL,
+		Type: model.CommandResponseTypeEphemeral,
 		Text: text,
 	}, nil
 }

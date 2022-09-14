@@ -1,3 +1,7 @@
+define GetPluginVersion
+$(shell node -p "'v' + require('./plugin.json').version")
+endef
+
 define AddTimeZoneOptions
 $(shell node -e 
 "
@@ -43,6 +47,9 @@ endef
 vendor: go.sum
 	echo "Downloading server dependencies"
 	go mod download
+
+PLUGIN_VERSION = $(call GetPluginVersion)
+GO_BUILD_FLAGS = -ldflags="-X 'main.PluginVersion=$(PLUGIN_VERSION)' -X 'main.SentryServerDSN=$(SERVER_DSN)' -X 'main.SentryWebappDSN=$(WEBAPP_DSN)' -X 'main.EncodedPluginIcon=data:image/svg+xml;base64,$(shell base64 assets/logo.svg)'"
 
 #
 #
